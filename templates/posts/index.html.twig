@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Registrar Posts {% endblock %}
+
+{% block body %}
+
+{{ parent() }}
+
+    {# {% for message in app.flashes('exito') %}
+        <div class = "alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %} #}
+
+    {{ form(form) }}
+
+{% endblock %}
