@@ -11,6 +11,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+    const REGISTRO_EXITOSO = "Se ha registrado correctamente";
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -52,6 +54,13 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Profesion", mappedBy="user")
      */
     private $profesion;
+
+
+    public function __construct(){
+        $this->baneado = false;
+        $this->roles = ['ROLE_USER'];
+
+    }
 
     /**
      * @var string The hashed password

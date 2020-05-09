@@ -2,8 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\PostsRepository;
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PostsRepository;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=PostsRepository::class)
@@ -28,7 +30,7 @@ class Posts
     private $likes;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $foto;
 
@@ -51,6 +53,12 @@ class Posts
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="post")
      */
     private $user;
+
+    public function __construct(){
+
+        $this->likes = '';
+        $this->fecha_publicacion = new \DateTime();
+    }
 
 
     public function getId(): ?int
@@ -117,4 +125,42 @@ class Posts
 
         return $this;
     }
+
+    /**
+     * @return mixed 
+     */
+    public function getComentarios()
+    {
+        return $this->comentarios;
+    }
+
+    /**
+     * @param mixed $comentarios
+     */
+
+    public function setComentarios($comentarios): void
+    { 
+        $this->comentarios = $comentarios;
+
+       
+    }
+
+    /**
+     * @return mixed 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+    */
+
+    public function setUser($user): void
+    {
+        $this->user = $user;  
+    }
+
+
 }
