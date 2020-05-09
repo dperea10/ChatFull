@@ -29,7 +29,7 @@ class RegistroController extends AbstractController
             return $this->redirectToRoute('registro');
         }
         return $this->render('registro/index.html.twig', [
-            'controller_name' => '',
+            
             'formulario'=> $form->createView()
         ]);
     }
