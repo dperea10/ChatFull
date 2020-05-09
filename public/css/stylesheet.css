@@ -38,6 +38,8 @@ h1,h2,h3,h4,h5,h6{
     color: #dd6c21;
 }
 
+
+
 .navbar{
     background-color: #dd6c21 !important;
     font-family: signikabold;
@@ -47,7 +49,7 @@ h1,h2,h3,h4,h5,h6{
 .navbar-brand{
     font-family: remachine_script_personal_uRg;
     font-size: 2em;
-    color: #ffffff !important;
+    color: #1f174b !important;
 }
 
 .nav-link{
@@ -55,13 +57,14 @@ h1,h2,h3,h4,h5,h6{
 }
 
 .fa-user, .bg-yellow {
-    color: #ffffff;
+    color: #1f174b;
     font-size: 1.3em;
 }
 .fa-clock, .bg-green{
-    color: #8661a8;
+    color: #1a1320;
     font-size: 1.3em;
 }
+
 
 .cursor:hover{
     cursor: pointer;

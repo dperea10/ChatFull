@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Comentarios
 {
+    const COMENTARIO_AGREGADO_EXITOSAMENTE = '¡Comentario enviado!';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -64,5 +65,36 @@ class Comentarios
         $this->fecha_publicacion = $fecha_publicacion;
 
         return $this;
+    }
+     /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user): void
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPost()
+    {
+        return $this->post;
+    }
+
+    /**
+     * @param mixed $post
+     */
+    public function setPost($post): void
+    {
+        $this->post = $post;
     }
 }

@@ -5,8 +5,11 @@ namespace App\Controller;
 use App\Entity\Posts;
 use App\Form\PostsType;
 use App\Entity\Comentarios;
+use App\Form\ComentarioType;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -78,19 +81,19 @@ class PostsController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $user = $this->getUser();
-            $comentario->setPosts($post);
+            $comentario->setPost($post);
             $comentario->setUser($user);
             $em->persist($comentario);
             $em->flush();
-            $this->addFlash('Exito', Comentarios::COMENTARIO_AGREGADO_EXITOSAMENTE);
-            return $this->redirectToRoute('VerPost',['id'=>$post->getId()]);
+            $this->addFlash('exito', Comentarios::COMENTARIO_AGREGADO_EXITOSAMENTE);
+            return $this->redirectToRoute('verpost',['id'=>$post->getId()]);
         }
         $pagination = $paginator->paginate(
             $queryComentarios, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
-            20 /*limit per page*/
+            15 /*limit per page*/
         );
-        return $this->render('posts/verPost.html.twig',['post'=>$post, 'form'=>$form->createView(), 'comentarios'=>$pagination]);
+        return $this->render('posts/verpost.html.twig',['post'=>$post, 'form'=>$form->createView(), 'comentarios'=>$pagination]);
     }
 
     /**
@@ -105,7 +108,7 @@ class PostsController extends AbstractController
     }
 
     /**
-    * @Route("/likes", options=("expose"=true), name="like")
+    * @Route("/like", options={"expose"=true}, name="like")
     */
 
     public function Like(Request $request){
@@ -114,11 +117,11 @@ class PostsController extends AbstractController
             $user = $this->getUser();
             $id = $request->request->get('id');
             $post = $em->getRepository(Posts::class)->find($id);
-            $likes = $post->getLikes();
-            $likes .= $user->getId().',';
-            $post->setLikes($likes);
+            $like = $post->getLikes();
+            $like .= $user->getId().',';
+            $post->setLikes($like);
             $em->flush();
-            return new JsonResponse(['likes'=>$likes]);
+            return new JsonResponse(['like'=>$like]);
         }else{
             throw new \Exception('No permitido');
         }
